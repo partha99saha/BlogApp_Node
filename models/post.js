@@ -15,10 +15,6 @@ const postSchema = new Schema(
       type: String,
       required: true
     },
-    isAdmin: {
-      type: Boolean,
-      default: false
-    },
     creator: {
       type: Object,
       required: String

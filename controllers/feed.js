@@ -52,7 +52,7 @@ exports.createPost = (req, res, next) => {
     title: title,
     content: content,
     imageUrl: imageUrl,
-    creator: { name: 'Maximilian' }
+    creator: { name: 'Partha' }
   });
   post
     .save()
