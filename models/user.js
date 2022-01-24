@@ -20,8 +20,8 @@ const userSchema = new Schema(
             default: false
         },
         status: {
-            type: string,
-            required: true
+            type: Boolean,
+            default: true
         },
         posts: [{
             type: Schema.Types.ObjectId,
@@ -30,4 +30,4 @@ const userSchema = new Schema(
     },
 );
 
-module.exports = mongoose.model('Post', postSchema);
+module.exports = mongoose.model('User', userSchema);
