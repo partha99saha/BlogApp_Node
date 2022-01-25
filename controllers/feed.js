@@ -146,7 +146,6 @@ exports.deletePost = (req, res, next) => {
         error.statusCode = 404;
         throw error;
       }
-      // Check logged in user
       clearImage(post.imageUrl);
       return Post.findByIdAndRemove(postId);
     })
