@@ -33,7 +33,8 @@ const fileFilter = (req, file, cb) => {
 };
 
 app.use(bodyParser.json()); // application/json
-app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).single('image'));
+app.use(multer(
+    { storage: fileStorage, fileFilter: fileFilter }).single('image'));
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use((req, res, next) => {
@@ -64,7 +65,7 @@ mongoose.connect(MONGODB_URI)
     .then((result) => {
         const server = app.listen(port);
         console.log(`server is running on: http://localhost:${port}`);
-        const io = require('socket.io')(server);
+        const io = require('./socket').init(server);
         io.on('connection', (socket) => {
             console.log('Client Conected');
         })

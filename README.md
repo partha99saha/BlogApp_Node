@@ -1,8 +1,9 @@
 # BlogApp_Node
 
-Node-API
-NodeJs
-REST-API
-JWT
-Express
-MongoDB
+JavaScript<br>
+NodeJs<br>
+REST-API<br>
+Express<br>
+MongoDB<br>
+JWT<br>
+Socket.io
