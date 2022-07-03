@@ -9,7 +9,7 @@ const feedRoutes = require('./routes/feed');
 const authRoutes = require('./routes/auth');
 
 const MONGODB_URI = 'mongodb://127.0.0.1:27017/Blog_Node';
-const port = 8080;
+const port = 5000;
 
 const fileStorage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -58,13 +58,17 @@ app.use((error, req, res, next) => {
 });
 
 mongoose.connect(MONGODB_URI)
-    .then((result) => {
+    .then(() => {
         console.log("--- connected to DB ---");
+    })
+    .then((result) => {
+        const server = app.listen(port);
+        console.log(`server is running on: http://localhost:${port}`);
+        const io = require('socket.io')(server);
+        io.on('connection', (socket) => {
+            console.log('Client Conected');
+        })
     })
     .catch((err) => {
         console.log(err);
     });
-
-app.listen(port, () => {
-    console.log(`server is running on: http://localhost:${port}`);
-});
