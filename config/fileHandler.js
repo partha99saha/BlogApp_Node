@@ -1,15 +1,17 @@
 const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
 
-const fileStorage = multer.diskStorage({
+exports.fileStorage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'images');
+        cb(null, './images');
     },
     filename: (req, file, cb) => {
         cb(null, file.originalname);
     }
 });
 
-const fileFilter = (req, file, cb) => {
+exports.fileFilter = (req, file, cb) => {
     if (
         file.mimetype === 'image/png' ||
         file.mimetype === 'image/jpg' ||
@@ -21,3 +23,7 @@ const fileFilter = (req, file, cb) => {
     }
 };
 
+exports.clearImage = filePath => {
+    filePath = path.join(__dirname, './images', filePath);
+    fs.unlink(filePath, err => console.log(err));
+};

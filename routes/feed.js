@@ -4,6 +4,17 @@ const feedController = require('../controllers/feed');
 const isAuth = require('../middleware/is-auth');
 
 const router = express.Router();
+// const { validationResult } = require('express-validator');
+
+// const validateResult = async (req, res, next) => {
+//   const errors = await validationResult(req);
+//   if (!errors.isEmpty()) {
+//     //console.log(errors);
+//     return res.status(400)
+//       .json({ 'error': errors.array()[0].msg });
+//   }
+//   next();
+// };
 
 // GET /feed/posts
 router.get('/posts', isAuth, feedController.getPosts);
