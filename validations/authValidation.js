@@ -28,11 +28,12 @@ exports.signUpValidator = [
         .isLength({min:5,max:10})
         .withMessage('Password Should be min 5 max 10 Long')
         .isAlphanumeric()
-        .withMessage('Password should be Alphanumeric'),
+        .withMessage('Password should be AlphaNumeric'),
     body('confirm_password')
         .trim()
         .notEmpty()
         .withMessage('Confirm Password should not be empty!')
+        .bail()
         .custom(async (confirmPassword, { req }) => {
             const password = await (req.body.password);
             if (password !== confirmPassword) {

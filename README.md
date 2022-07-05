@@ -6,4 +6,5 @@ REST-API<br>
 Express<br>
 MongoDB<br>
 JWT<br>
-Socket.io
+Socket.io<br>
+GraphQL
