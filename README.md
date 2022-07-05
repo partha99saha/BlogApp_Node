@@ -7,4 +7,3 @@ Express<br>
 MongoDB<br>
 JWT<br>
 Socket.io<br>
-GraphQL
