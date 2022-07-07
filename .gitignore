@@ -27,3 +27,7 @@ config/.env.test
 # Remove logs
 ./logs
 *.log
+
+#ssl
+server.cert
+server.key

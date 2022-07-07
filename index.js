@@ -1,15 +1,20 @@
 const path = require('path');
+const fs = require('fs');
+const https = require('https');
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const multer = require('multer');
-require('dotenv').config({ path: path.join(__dirname, './', 'config', '.env') })
+const bootstrap = require('./config/bootstrap');
 const fileHandler = require('./config/fileHandler');
-const port = process.env.port;
 const app = express();
 
 const feedRoutes = require('./routes/feed');
 const authRoutes = require('./routes/auth');
+
+const privateKey = fs.readFileSync('server.key');
+const certificate = fs.readFileSync('server.cert');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -28,9 +33,16 @@ app.use((error, req, res, next) => {
     res.status(status).json({ message: message, data: data });
 });
 
+const port = bootstrap.port;
 require('./config/dbConfig');
-const server = app.listen(port);
-console.log(`server is running on: http://localhost:${port}`);
+const server =
+app.listen(port);
+    // https.createServer(
+    //     {
+    //         key: privateKey,
+    //         cert: certificate
+    //     },app).listen(port);
+console.log(`server is running on: ${port}`);
 const io = require('./util/socket').init(server);
 io.on('connection', (socket) => {
     console.log('socket.io Conected');

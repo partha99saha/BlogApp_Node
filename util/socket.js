@@ -1,10 +1,12 @@
+const bootstrap = require('../config/bootstrap');
+
 let io;
 
 module.exports = {
   init: httpServer => {
     io = require('socket.io')(httpServer, {
       cors: {
-        origin: "http://localhost:3000",
+        origin: bootstrap.React_HOST,
         methods: ["GET", "POST","PUT","DELETE"]
       }
     });
