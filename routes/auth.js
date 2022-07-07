@@ -3,9 +3,9 @@ const { body } = require('express-validator');
 const User = require('../models/user');
 const authController = require('../controllers/auth');
 const isAuth = require('../middleware/is-auth');
-
 const router = express.Router();
-// const { validationResult } = require('express-validator');
+//const { validationResult } = require('express-validator');
+//const authValidator = require('../validations/authValidation')
 
 // const validateResult = async (req, res, next) => {
 //   const errors = await validationResult(req);
@@ -29,8 +29,7 @@ router.put(
             return Promise.reject('E-Mail address already exists!');
           }
         });
-      })
-      .normalizeEmail(),
+      }),
     body('password')
       .trim()
       .isLength({ min: 5 }),
@@ -39,6 +38,8 @@ router.put(
       .not()
       .isEmpty()
   ],
+  //authValidator.signUpValidator,
+  //validateResult,
   authController.signup
 );
 

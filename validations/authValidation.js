@@ -1,4 +1,5 @@
 const { body } = require('express-validator');
+const User = require('../models/user');
 
 /**
  * SignUp Validator for SignUp API
@@ -19,13 +20,20 @@ exports.signUpValidator = [
         .withMessage('Email should not be empty!')
         .bail()
         .isEmail()
-        .withMessage('Please Enter a valid Email'),
+        .withMessage('Please Enter a valid Email')
+        .custom((value, { req }) => {
+            return User.findOne({ email: value }).then(userDoc => {
+                if (userDoc) {
+                    return Promise.reject('E-Mail address already exists!');
+                }
+            });
+        }),
     body('password')
         .trim()
         .notEmpty()
         .withMessage('Password should not be empty!')
         .bail()
-        .isLength({min:5,max:10})
+        .isLength({ min: 5, max: 10 })
         .withMessage('Password Should be min 5 max 10 Long')
         .isAlphanumeric()
         .withMessage('Password should be AlphaNumeric'),
