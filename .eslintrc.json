@@ -1,17 +1,16 @@
 {
     "env": {
         "browser": true,
-        "commonjs": true,
         "es2021": true
     },
-    "extends": [
-        "google"
-    ],
+    "extends": "eslint:recommended",
     "parserOptions": {
-        "ecmaVersion": "latest"
+        "ecmaVersion": "latest",
+        "sourceType": "module"
     },
     "rules": {
         "new-cap": 0,
         "no-console": 1
-    }
+    },
+    "ignorePatterns": ["/images","/logs"]
 }

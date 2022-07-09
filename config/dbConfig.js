@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-const logger = require("../util/logger")
+const logger = require("../util/logger");
 const bootstrap =require('./bootstrap');
 
-const MONGODB_URI = bootstrap.MONGODB_URI;
+const MONGODB_URI = bootstrap.MONGO_ATLAS;
 
 mongoose.connect(MONGODB_URI)
     .then(() => {

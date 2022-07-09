@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js",
     "start-server": "node index.js",
-    "lint-fix": "eslint ./*/*.js --fix"
+    "lint-fix": "./node_modules/.bin/eslint ./**.js ./**/**.js --fix"
   },
   "author": "Partha Saha",
   "license": "ISC",
@@ -18,7 +18,6 @@
     "connect-mongodb-session": "^3.1.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
-    "eslint": "^8.1.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-eslint-plugin": "^4.4.0",
     "express": "^4.17.1",
@@ -34,6 +33,7 @@
     "winston": "^3.6.0"
   },
   "devDependencies": {
+    "eslint": "^8.19.0",
     "nodemon": "^1.3.3"
   }
 }
