@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const User = require("../models/user");
 const authController = require("../controllers/auth");
 
-describe("Auth-Login Test", () => {
+describe("Auth-Controller Login Test", () => {
   it("Throw error if DB connection fails", (done) => {
     sinon.stub(User, 'findOne');
     User.findOne.throws();
@@ -23,7 +23,7 @@ describe("Auth-Login Test", () => {
     User.findOne.restore();
   });
 
-  it('Send Responce for Exsisting User', (done) => {
+  before((done) => {
     mongoose.connect('mongodb://127.0.0.1:27017/Blog_TestDB')
       .then(result => {
         const user = new User({
@@ -34,29 +34,39 @@ describe("Auth-Login Test", () => {
           _id: '62cb0545137d1cca98673e48'
         });
         return user.save();
-      })
-      .then(() => {
-        const req = {
-          userId: '62cb0545137d1cca98673e48'
-        };
-        const res = {
-          statusCode: 500,
-          userStatus: null,
-          status:(code)=>{
-            this.statusCode = code;
-            return this;
-          },
-          json:(data)=>{
-            this.userStatus = data.status;
-          }
-        };
-        authController.getUserStatus(req,res,()=>{})
-        .then(()=>{
-          expect(res.statusCode).to.be.equal(200);
-          expect(res.userStatus).to.be.equal('I am new!');
-        })
-        done();
-      }).catch(done);
+      }).then(() => { done() });
   });
 
+  it('Send Responce for Exsisting User', (done) => {
+    const req = {
+      userId: '62cb0545137d1cca98673e48'
+    };
+    const res = {
+      statusCode: 500,
+      userStatus: null,
+      status: (code) => {
+        this.statusCode = code;
+        return this;
+      },
+      json: (data) => {
+        this.userStatus = data.status;
+      }
+    };
+    authController.getUserStatus(req, res, () => { })
+      .then(() => {
+        expect(res.statusCode).to.be.equal(200);
+        expect(res.userStatus).to.be.equal('I am new!');
+        done();
+      })
+  })
+
+  after((done) => {
+    User.deleteMany({})
+      .then(() => {
+        return mongoose.disconnect()
+      })
+      .then(() => {
+        done();
+      })
+  })
 });
