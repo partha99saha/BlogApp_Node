@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const User = require('../models/user');
 const AuthController = require('../controllers/auth');
 
-describe('Auth Controller', function () {
+describe('Auth Controller', ()=> {
 
   it('should throw an error DB connection fails', (done) => {
     sinon.stub(User, 'findOne');
